@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caleb Morfitt - Product Creator</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #0a0a0a;
+            background: #ffffff;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            padding: 80px 0 60px;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 60px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 4px;
+            background-color: #8b7355;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #ffffff;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            border: 2px solid #8b7355;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-image:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 80, 255, 0.2);
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+            color: #8b7355;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #666;
+            margin-bottom: 32px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: 2px solid #0a0a0a;
+            border-radius: 4px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background-color: #8b7355;
+            color: #ffffff;
+            border-color: #8b7355;
+        }
+
+        .btn-primary:hover {
+            background-color: #8b7355;
+            border-color: #8b7355;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #ffffff;
+            color: #0a0a0a;
+            border: 2px solid #e5e5e5;
+        }
+
+        .btn-secondary:hover {
+            border-color: #0a0a0a;
+            transform: translateY(-1px);
+        }
+
+        section {
+            margin-bottom: 100px;
+        }
+
+        .section-number {
+            font-family: 'JetBrains Mono', monospace;
+            color: #999;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 32px;
+            color: #0a0a0a;
+            letter-spacing: -0.01em;
+        }
+
+        .bio {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: #333;
+            margin-bottom: 24px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .bio strong {
+            color: #0a0a0a;
+            font-weight: 600;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .project-card {
+            background: #fafafa;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 32px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            border-color: #8b7355;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #8b7355;
+            transform: scaleY(0);
+            transition: transform 0.2s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .project-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: #0a0a0a;
+            font-weight: 600;
+        }
+
+        .project-card p {
+            color: #555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .project-link {
+            color: #8b7355;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+            transition: gap 0.2s ease;
+        }
+
+        .project-link:hover {
+            gap: 10px;
+        }
+
+        .experience-item {
+            margin-bottom: 48px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #e5e5e5;
+            position: relative;
+            padding-left: 120px;
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+        }
+
+        .job-year {
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: #999;
+            font-weight: 500;
+        }
+
+        .job-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #0a0a0a;
+            margin-bottom: 4px;
+        }
+
+        .company {
+            font-size: 1.1rem;
+            color: #8b7355;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .job-description {
+            color: #333;
+            line-height: 1.7;
+        }
+
+        .interactive-section {
+            background: linear-gradient(135deg, #f5f9ff 0%, #fff5f0 100%);
+            border: 2px solid #8b7355;
+            border-radius: 8px;
+            padding: 48px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interactive-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 80, 255, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .interactive-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-top: 32px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #8b7355;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #fafafa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            border: 2px dashed #e5e5e5;
+            transition: all 0.2s ease;
+        }
+
+        .video-container:hover {
+            border-color: #8b7355;
+            border-style: solid;
+        }
+
+        .video-placeholder {
+            text-align: center;
+            color: #666;
+        }
+
+        .video-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            color: #8b7355;
+            display: block;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 32px;
+        }
+
+        .social-link {
+            width: 48px;
+            height: 48px;
+            border-radius: 4px;
+            background: #fafafa;
+            border: 2px solid #e5e5e5;
+            color: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background: #8b7355;
+            color: #ffffff;
+            border-color: #8b7355;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            border-top: 1px solid #e5e5e5;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            margin: 5% auto;
+            padding: 48px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 2px solid #e5e5e5;
+        }
+
+        .close {
+            float: right;
+            font-size: 28px;
+            font-weight: 400;
+            cursor: pointer;
+            color: #999;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+
+        .close:hover {
+            color: #0a0a0a;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted #8b7355;
+            cursor: help;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 12px;
+            background: #0a0a0a;
+            color: #ffffff;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            z-index: 100;
+            margin-bottom: 8px;
+        }
+
+        .code-block {
+            background: #0a0a0a;
+            color: #00ff00;
+            padding: 24px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            margin: 24px 0;
+            overflow-x: auto;
+            border: 2px solid #333;
+        }
+
+        .code-block span {
+            color: #8b7355;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-image {
+                margin: 0 auto;
+            }
+
+            .hero-content h1 {
+                font-size: 2.25rem;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .experience-item {
+                padding-left: 0;
+            }
+
+            .job-year {
+                position: static;
+                display: block;
+                margin-bottom: 8px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .interactive-section {
+                padding: 32px 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="hero">
+                <img src="cropped_caleb_fall2023.JPEG" class="profile-image" alt="Caleb Morfitt">
+                <div class="hero-content">
+                    <h1>@CalebMorfitt</h1>
+                    <p class="subtitle">Product Creator // Philosopher-Builder</p>
+                    <div class="cta-buttons">
+                        <a href="#contact" class="btn btn-primary">
+                            <i class="fas fa-envelope"></i>
+                            Get In Touch
+                        </a>
+                        <a href="https://github.com/morfi008/morfi008/blob/07905064ef0eb3c9d358dc1caf2584b52f985c1d/Morfitt%20Resume%20-%20Jan%202026%20v1.pdf" class="btn btn-secondary">
+                            <i class="fas fa-file-alt"></i>
+                            View Resume
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section id="about">
+                <div class="section-number">01 | ABOUT</div>
+                <div class="bio">
+                   I have a knack for listening closely to people and getting to the <strong>X factor</strong> that makes all the difference in a product.
+                </div>
+                <div class="bio">
+                    For the past seven years, I've been building and managing software products in <span class="tooltip" data-tooltip="Target">Retail</span>, <span class="tooltip" data-tooltip="FINRA">Financial Regulation</span>, and <span class="tooltip" data-tooltip="Software for music producers">Digital Music</span>. I lead cross-functional teams to deliver big impact by solving tangible problems.
+                </div>
+
+                <div class="interactive-section">
+                    <div class="interactive-content">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 16px; font-weight: 600;">Impact Metrics</h3>
+                        <div class="stat-grid">
+                            <div class="stat-item">
+                                <span class="stat-number">2,500+</span>
+                                <span class="stat-label">weekly active users</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">$10M</span>
+                                <span class="stat-label">estimated annual savings</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">5 months</span>
+                                <span class="stat-label">from product launch <br>to adoption goal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!--<section id="video-intro">
+                <div class="section-number">02 | INTRODUCTION</div>
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                        <h3 style="margin-bottom: 8px;">Video Introduction</h3>
+                        <p>Replace this with your video embed or upload</p>
+                    </div>
+                </div>
+            </section>-->
+
+            <section id="projects">
+                <div class="section-number">02 | FEATURED PROJECTS</div>
+                <h2>Featured Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>FILLIP: FINRA's AI Assistant</h3>
+                        <p>My team and I are building an AI assistant (and platform) to equip examiners, analysts, and attorneys with AI apps optimized for domain knowledge, accuracy, and data security.</p>
+                        <!--<a href="#" class="project-link">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </a>-->
+                    </div>
+
+                    <div class="project-card">
+                        <h3>The Supercomputing Array</h3>
+                        <p>For maximally efficient machine learning model training at Target, we created an on-premises GPU cluster and internal platform combining vendor and open-source offerings to support recommender models, search, vision models, NLP, and more.</p>
+                        <!--<a href="#" class="project-link">
+                            View Case Study <i class="fas fa-external-link-alt"></i>
+                        </a>-->
+                    </div>
+
+                    <div class="project-card">
+                        <h3>Music Production Tools & Toys</h3>
+                        <p>On the side, I create software for digital music creators.</p>
+                        <!--<a href="#" class="project-link">
+                            Explore <i class="fas fa-arrow-right"></i>-->
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="experience">
+                <div class="section-number">03 | EXPERIENCE</div>
+                <h2>Experience</h2>
+
+                <div class="experience-item">
+                    <div class="job-year">2023 – Now</div>
+                    <div class="job-title">Generative AI Product Manager</div>
+                    <div class="company">FINRA</div>
+                    <div class="job-description">
+                        Led product strategy and execution for FILLIP, FINRA's internal GenAI assistant and platform. Took product from zero to beta to one, reaching 1,500 WAUs (30% of company) within three months of general availability and estimated $10M annual savings in efficiency gains. Led cross-functional team of engineers, designers, and data scientists.
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-year">2021 – 2023</div>
+                    <div class="job-title">Product Manager - Model Training Platform</div>
+                    <div class="company">Target</div>
+                    <div class="job-description">
+                        Launched the Supercomputing Array, accelerated compute ML model training platform and tooling. Led collaboration across functions and product teams to define end-to-end user journey for AI scientists and engineers and create a seamless user experience, resulting in unprecedented user satisfaction scores and time savings.
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-year">2019 – 2021</div>
+                    <div class="job-title">Senior Product Owner - High Performance Computing</div>
+                    <div class="company">Target</div>
+                    <div class="job-description">
+                        Served as Product Owner for Thalamus, a real-time data stream processing platform leveraging high-performance computing technology to process petabytes of data annually at cost savings of $100+ million. Defined roadmap in collaboration with Director of Engineering to maximize value and usability for 1,000+ enterprise users.
+                    </div>
+                </div>
+            </section>
+
+            <!--<section id="writing">
+                <div class="section-number">04 | THOUGHT LEADERSHIP</div>
+                <h2>Writing & Thought Leadership</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h3>Product Strategy Deep Dive</h3>
+                        <p>A comprehensive guide to building product strategy in uncertain times. Published on [platform].</p>
+                        <a href="#" class="project-link">
+                            Read Article <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>Podcast Interview</h3>
+                        <p>Discussing the future of product management and AI integration in product development.</p>
+                        <a href="#" class="project-link">
+                            Listen Now <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>-->
+
+            <section id="contact">
+                <div class="section-number">04 | CONNECT</div>
+                <h2>Let's Connect</h2>
+                <div class="bio" style="text-align: center;">
+                    I'm always interested in connecting with fellow product managers, discussing opportunities, or exploring potential collaborations. Feel free to reach out!
+                </div>
+                <div class="social-links">
+                    <a href="mailto:calebmorfitt@gmail.com" class="social-link" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/calebmorfitt" class="social-link" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://twitter.com/calebmorfitt" class="social-link" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://medium.com/@yourhandle" class="social-link" title="Medium">
+                        <i class="fab fa-medium-m"></i>
+                    </a>
+                    <a href="https://substack.com/@calebmorfitt"
+                    class="social-link"
+                    title="Substack">
+                        <svg role="img" viewBox="-11 -11 45 45" xmlns="http://www.w3.org/2000/svg"><title>Substack</title><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Caleb Morfitt. All rights reserved.</p>
+        </footer>
+    </div>
+
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('onclick')) return;
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add subtle parallax effect to interactive section
+        document.addEventListener('scroll', function() {
+            const interactive = document.querySelector('.interactive-section::before');
+            const scrolled = window.pageYOffset;
+            if (interactive) {
+                interactive.style.transform = `translateY(${scrolled * 0.1}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
